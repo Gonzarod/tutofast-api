@@ -73,6 +73,8 @@ public class DataLoader {
         ));
     }
 
+
+
     private void registerUserStudent() {
 
         SignUpRequest userStudent1 = new SignUpRequest("jesus.student","password","jesus@gmail.com","ROLE_STUDENT","Jesus",
