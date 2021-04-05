@@ -7,6 +7,7 @@ import com.evertix.tutofastapi.security.request.SignUpRequest;
 import com.evertix.tutofastapi.security.response.JwtResponse;
 import com.evertix.tutofastapi.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
+
 @CrossOrigin
+@Tag(name = "Authentication", description = "API is Ready")
 @RequestMapping("api/auth")
 @RestController
 public class AuthenticationController {
