@@ -39,7 +39,7 @@ public class DataLoader {
         this.addRoles();
         this.addCourses();
         this.registerUserStudent();
-        //this.registerTeacher();
+        this.registerTeacher();
         //this.setTeacherCourses();
         //this.addTutorships();
 
@@ -73,8 +73,6 @@ public class DataLoader {
         ));
     }
 
-
-
     private void registerUserStudent() {
 
         SignUpRequest userStudent1 = new SignUpRequest("jesus.student","password","jesus@gmail.com","ROLE_STUDENT","Jesus",
@@ -85,5 +83,24 @@ public class DataLoader {
 
         this.authenticationService.registerUser(userStudent1);
         this.authenticationService.registerUser(userStudent2);
+    }
+    private void registerTeacher() {
+
+        SignUpRequest userTeacher1 = new SignUpRequest("albert.teacher","password","albert@gmail.com","ROLE_TEACHER","Albert",
+                "Mayta","09987745","999666555");
+
+        SignUpRequest userTeacher2 = new SignUpRequest("roberto.teacher","password","roberto@gmail.com","ROLE_TEACHER","Roberto",
+                "Villanueva","09822145","987456123");
+
+        SignUpRequest userTeacher3 = new SignUpRequest("pilar.teacher","password","pilar@gmail.com","ROLE_TEACHER","Pilar",
+                "Lopez","09422448","987456883");
+
+        SignUpRequest userTeacher4 = new SignUpRequest("junnior.teacher","password","junnior@gmail.com","ROLE_TEACHER","Junnior",
+                "Quispe","07422882","967896258");
+
+        this.authenticationService.registerUser(userTeacher1);
+        this.authenticationService.registerUser(userTeacher2);
+        this.authenticationService.registerUser(userTeacher3);
+        this.authenticationService.registerUser(userTeacher4);
     }
 }
