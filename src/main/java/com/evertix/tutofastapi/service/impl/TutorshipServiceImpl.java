@@ -25,6 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Optional;
 
 @Service
@@ -89,17 +91,21 @@ public class TutorshipServiceImpl implements TutorshipService {
                             MessageResponse.builder()
                                     .code(ResponseConstants.SUCCESS_CODE)
                                     .message("Éxito al crear la solicitud")
-                                    .data(saveTutorship)
+                                    .data(this.convertToResource(saveTutorship))
                                     .build());
 
 
         }catch (Exception e){
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(
+
                             MessageResponse.builder()
                                     .code(ResponseConstants.ERROR_CODE)
-                                    .message("Error Interno: "+e.getMessage())
+                                    .message("Error Interno: "+sw.toString())
                                     .build()
                     );
         }
@@ -112,7 +118,12 @@ public class TutorshipServiceImpl implements TutorshipService {
     private Tutorship convertToEntity(SaveTutorshipRequest object){return mapper.map(object, Tutorship.class);}
 
     private TutorshipRequest convertToResource(Tutorship entity){
-        return mapper.map(entity, TutorshipRequest.class);
+        TutorshipRequest resource = mapper.map(entity, TutorshipRequest.class);
+        resource.setStudentName(entity.getStudent().getName()+" "+entity.getStudent().getLastName());
+        //resource.setTeacherName(entity.getTeacher().getName()+" "+entity.getTeacher().getLastName()); //Null Exception
+        resource.setStatus(entity.getStatus().toString());
+
+        return resource;
     }
 
 }
