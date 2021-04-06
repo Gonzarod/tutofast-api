@@ -41,7 +41,7 @@ public class TutorshipController {
     }
 
     @GetMapping("/search")
-    //@PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Search Tutorship Request", description = "Search Tutorship Request",
             security = @SecurityRequirement(name = "bearerAuth"),tags = {"Tutorship"})
     public ResponseEntity<MessageResponse> getAllTutorshipRequestFiltered(@RequestParam(required = false) @Parameter(description = "is Optional") Long courseId) {
