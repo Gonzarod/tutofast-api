@@ -5,29 +5,20 @@ import com.evertix.tutofastapi.controller.constants.ResponseConstants;
 import com.evertix.tutofastapi.model.Course;
 import com.evertix.tutofastapi.model.Tutorship;
 import com.evertix.tutofastapi.model.User;
-import com.evertix.tutofastapi.model.dto.CourseDetail;
 import com.evertix.tutofastapi.model.dto.SaveTutorshipRequest;
 import com.evertix.tutofastapi.model.dto.TutorshipRequest;
-import com.evertix.tutofastapi.model.dto.UserDetail;
 import com.evertix.tutofastapi.model.enums.EStatus;
 import com.evertix.tutofastapi.repository.CourseRepository;
 import com.evertix.tutofastapi.repository.TutorshipRepository;
 import com.evertix.tutofastapi.repository.UserRepository;
-import com.evertix.tutofastapi.service.CourseService;
 import com.evertix.tutofastapi.service.TutorshipService;
-import com.evertix.tutofastapi.service.UserService;
-import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Optional;
 
 @Service
 public class TutorshipServiceImpl implements TutorshipService {
@@ -113,6 +104,41 @@ public class TutorshipServiceImpl implements TutorshipService {
 
     }
 
+    @Override
+    public ResponseEntity<MessageResponse> getAllTutorshipRequestFiltered(Long courseId) {
+        try {
+            //Validate if Course Exists
+            Course course = this.courseRepository.findById(courseId).orElse(null);
+
+            if(course == null){
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(
+                                MessageResponse.builder()
+                                        .code(ResponseConstants.ERROR_CODE)
+                                        .message("No existe curso con ID: "+courseId)
+                                        .build()
+                        );
+            }
+
+            return null;
+
+
+        }catch (Exception e){
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(
+
+                            MessageResponse.builder()
+                                    .code(ResponseConstants.ERROR_CODE)
+                                    .message("Error Interno: "+sw.toString())
+                                    .build()
+                    );
+        }
+    }
 
 
     private Tutorship convertToEntity(SaveTutorshipRequest object){return mapper.map(object, Tutorship.class);}

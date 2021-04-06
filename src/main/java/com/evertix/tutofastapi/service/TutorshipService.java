@@ -11,4 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface TutorshipService {
     ResponseEntity<MessageResponse> createTutorshipRequest(SaveTutorshipRequest request, Long studentId, Long courseId);
+
+    ResponseEntity<MessageResponse> getAllTutorshipRequestFiltered(Long courseId);
 }
