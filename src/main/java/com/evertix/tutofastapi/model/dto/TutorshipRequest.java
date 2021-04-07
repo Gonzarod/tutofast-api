@@ -18,8 +18,8 @@ public class TutorshipRequest {
     private String courseName;
     private String topic;
     private String status;
-    private LocalDateTime start_at;
-    private LocalDateTime end_at;
+    private LocalDateTime startAt;
+    private LocalDateTime endAt;
 
 
 

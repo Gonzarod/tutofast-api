@@ -147,7 +147,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     public ResponseEntity<MessageResponse> getNoCourseContent(){
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 MessageResponse
                         .builder()
                         .code(ResponseConstants.WARNING_CODE)

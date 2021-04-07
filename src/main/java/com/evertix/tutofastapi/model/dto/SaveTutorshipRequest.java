@@ -22,9 +22,9 @@ public class SaveTutorshipRequest {
     private String topic;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime start_at;
+    private LocalDateTime startAt;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime end_at;
+    private LocalDateTime endAt;
 
 }
