@@ -31,10 +31,10 @@ public class Tutorship implements Serializable {
     private String topic;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime start_at;
+    private LocalDateTime startAt;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime end_at;
+    private LocalDateTime endAt;
 
     @NotNull(message = "Status cannot be null")
     @NotBlank(message = "Status cannot be blank")
@@ -60,9 +60,9 @@ public class Tutorship implements Serializable {
     //@JsonIgnore
     private Course course;
 
-    public Tutorship(LocalDateTime start_at,LocalDateTime end_at,EStatus status,String topic,User student,Course course){
-        this.start_at=start_at;
-        this.end_at=end_at;
+    public Tutorship(LocalDateTime startAt,LocalDateTime endAt,EStatus status,String topic,User student,Course course){
+        this.startAt=startAt;
+        this.endAt=endAt;
         this.status=status;
         this.topic=topic;
         this.student=student;
