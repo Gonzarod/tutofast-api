@@ -173,22 +173,24 @@ public class TutorshipServiceImpl implements TutorshipService {
     }
 
     @Override
-    public ResponseEntity<MessageResponse> searchAllTutorshipRequestPaged(Long courseId, Date date, Pageable pageable) {
+    public ResponseEntity<MessageResponse> searchAllTutorshipRequestPaged(Long studentId, Long courseId, Date date, Pageable pageable) {
         try {
-            LocalDateTime date1=null;
-            LocalDateTime date2=null;
+            LocalDateTime date1 = null;
+            LocalDateTime date2 = null;
             if(date!=null){
                 date1=date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atStartOfDay();
                 date2=date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atTime(23, 59, 59);
-
                 System.out.println(date);
             }
             //TODO: USE PREDICATES
             Page<Tutorship> tutorshipList;
-            if (courseId==null && date==null){
+            if (studentId==null && courseId==null && date==null){
                 tutorshipList=this.tutorshipRepository.getAllByStatusEquals(EStatus.OPEN,pageable);
             }else {
-                if (courseId!=null && date==null){
+                if (studentId != null) {
+                    tutorshipList=this.tutorshipRepository.getAllByStudentId(studentId,pageable);
+                }
+                else if (courseId!=null && date==null){
                     tutorshipList=this.tutorshipRepository.getAllByStatusEqualsAndCourseId(EStatus.OPEN,courseId,pageable);
                 }else if(courseId==null){
                     tutorshipList=this.tutorshipRepository.getAllByStatusEqualsAndStartAtBetween(EStatus.OPEN,date1,date2,pageable);

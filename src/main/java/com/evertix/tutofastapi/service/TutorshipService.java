@@ -16,8 +16,7 @@ import java.util.Date;
 public interface TutorshipService {
     ResponseEntity<MessageResponse> createTutorshipRequest(SaveTutorshipRequest request, Long studentId, Long courseId);
 
-
     ResponseEntity<MessageResponse> searchAllTutorshipRequest(Long courseId, Date date);
 
-    ResponseEntity<MessageResponse> searchAllTutorshipRequestPaged(Long courseId, Date date, Pageable pageable);
+    ResponseEntity<MessageResponse> searchAllTutorshipRequestPaged(Long studentId, Long courseId, Date date, Pageable pageable);
 }
