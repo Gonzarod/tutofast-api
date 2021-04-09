@@ -49,7 +49,7 @@ public class TutorshipServiceImpl implements TutorshipService {
         try {
             //Validate if Tutorship Exists
             Tutorship tutorship = this.tutorshipRepository.findById(id).orElse(null);
-            if (tutorship == null){
+            if (tutorship == null || tutorship.getStatus() == EStatus.CLOSED){
                 return ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(MessageResponse.builder()
