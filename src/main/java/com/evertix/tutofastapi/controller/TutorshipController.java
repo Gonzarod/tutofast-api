@@ -79,9 +79,10 @@ public class TutorshipController {
                             , content = @Content(array = @ArraySchema(schema = @Schema(type = "string"))))
             },security = @SecurityRequirement(name = "bearerAuth"),tags = {"Tutorship"})
     public ResponseEntity<MessageResponse> searchAllTutorshipRequestPaged(@PageableDefault @Parameter(hidden = true) Pageable pageable,
+                                                                          @RequestParam(required = false) @Parameter(description = "is Optional") Long studentId,
                                                                           @RequestParam(required = false) @Parameter(description = "is Optional") Long courseId,
                                                                           @RequestParam(required = false)  @DateTimeFormat(pattern="yyyy-MM-dd") @Parameter(description = "is Optional") Date date) {
-        return this.tutorshipService.searchAllTutorshipRequestPaged(courseId,date,pageable);
+        return this.tutorshipService.searchAllTutorshipRequestPaged(studentId, courseId, date, pageable);
 
     }
 

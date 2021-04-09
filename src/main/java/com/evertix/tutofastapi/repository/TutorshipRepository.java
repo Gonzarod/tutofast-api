@@ -19,11 +19,11 @@ public interface TutorshipRepository extends JpaRepository<Tutorship,Long > {
     List<Tutorship> getAllByStatusEqualsAndCourseIdAndStartAtBetween(EStatus status, Long courseId,LocalDateTime date1,LocalDateTime date2);
 
     Page<Tutorship> getAllByStatusEquals(EStatus status,Pageable pageable);
-    Page<Tutorship> getAllByStatusEqualsAndCourseId(EStatus status,Long courseId,Pageable pageable);
+    Page<Tutorship> getAllByStudentId(Long studentId, Pageable pageable);
+    Page<Tutorship> getAllByStatusEqualsAndCourseId(EStatus status,Long courseId, Pageable pageable);
     Page<Tutorship> getAllByStatusEqualsAndStartAtBetween(EStatus status,LocalDateTime date1,LocalDateTime date2,Pageable pageable);
     Page<Tutorship> getAllByStatusEqualsAndCourseIdAndStartAtBetween(EStatus status, Long courseId,LocalDateTime date1,LocalDateTime date2,Pageable pageable);
 
     List<Tutorship> getAllByStudentIdAndStatusEquals(Long studentId, EStatus status);
-
 
 }
