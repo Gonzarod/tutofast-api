@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class TutorshipRequest {
-
     private String studentName;
     private String teacherName;
     private String courseName;
@@ -20,7 +19,4 @@ public class TutorshipRequest {
     private String status;
     private LocalDateTime startAt;
     private LocalDateTime endAt;
-
-
-
 }

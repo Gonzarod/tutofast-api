@@ -39,6 +39,14 @@ public class TutorshipController {
     @Autowired
     TutorshipService tutorshipService;
 
+    @PutMapping("/{id}/teacher/{teacherId}")
+    //@PreAuthorize("isAuthenticated()")
+    @Operation(summary = "Set Teacher", description = "Set Teacher",
+            security = @SecurityRequirement(name = "bearerAuth"), tags = {"Tutorship"})
+    public ResponseEntity<MessageResponse> setTeacher(@PathVariable Long id, @PathVariable Long teacherId) {
+        return this.tutorshipService.selectTeacherTutorship(id, teacherId);
+    }
+
     @PostMapping("/student/{studentId}/course/{courseId}")
     @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Create Tutorship Request", description = "Create Tutorship Request",

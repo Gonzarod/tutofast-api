@@ -45,6 +45,57 @@ public class TutorshipServiceImpl implements TutorshipService {
 
 
     @Override
+    public ResponseEntity<MessageResponse> selectTeacherTutorship(Long id, Long teacherId) {
+        try {
+            //Validate if Tutorship Exists
+            Tutorship tutorship = this.tutorshipRepository.findById(id).orElse(null);
+            if (tutorship == null){
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(MessageResponse.builder()
+                                .code(ResponseConstants.ERROR_CODE)
+                                .message("No existe tutorship con ID: "+id)
+                                .build()
+                        );
+            }
+            // Validate if Teacher Exists
+            User teacher = this.userRepository.findById(teacherId).orElse(null);
+            if (teacher == null){
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(MessageResponse.builder()
+                                .code(ResponseConstants.ERROR_CODE)
+                                .message("No existe usuario teacher con ID: "+teacherId)
+                                .build()
+                        );
+            }
+            //Validation Completed
+            tutorship.setStatus(EStatus.CLOSED);
+            tutorship.setTeacher(teacher);
+            tutorship = tutorshipRepository.save(tutorship);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(MessageResponse.builder()
+                            .code(ResponseConstants.SUCCESS_CODE)
+                            .message("Éxito al completar Tutorship")
+                            .data(this.convertToResource(tutorship))
+                            .build());
+
+        } catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(MessageResponse.builder()
+                            .code(ResponseConstants.ERROR_CODE)
+                            .message("Error Interno: "+sw.toString())
+                            .build()
+                    );
+        }
+    }
+
+    @Override
     public ResponseEntity<MessageResponse> createTutorshipRequest(SaveTutorshipRequest request, Long studentId, Long courseId) {
 
         try {
