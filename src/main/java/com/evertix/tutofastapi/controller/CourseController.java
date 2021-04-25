@@ -1,6 +1,7 @@
 package com.evertix.tutofastapi.controller;
 
 import com.evertix.tutofastapi.controller.commons.MessageResponse;
+import com.evertix.tutofastapi.model.dto.SaveCourseRequest;
 import com.evertix.tutofastapi.service.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @CrossOrigin
@@ -102,13 +105,20 @@ public class CourseController  {
 
 
  */
+    @PutMapping("/{courseId}")
+    @PreAuthorize("isAuthenticated()")
+    @Operation(summary = "Update Course", description = "Update Course",
+            security = @SecurityRequirement(name = "bearerAuth"), tags = {"Course"})
+    public ResponseEntity<MessageResponse> update(@RequestBody @Valid SaveCourseRequest course,
+                                                  @PathVariable Long courseId) {
+        return this.courseService.updateCourse(course, courseId);
+    }
 
-
-
-
-
-
-
-
-
+    @DeleteMapping("/{courseId}")
+    @PreAuthorize("isAuthenticated()")
+    @Operation(summary = "Delete Course", description = "Delete Course",
+            security = @SecurityRequirement(name = "bearerAuth"), tags = {"Course"})
+    public ResponseEntity<MessageResponse> delete(@PathVariable Long courseId) {
+        return this.courseService.deleteCourse(courseId);
+    }
 }
